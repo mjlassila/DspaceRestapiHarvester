@@ -114,7 +114,7 @@ class DspaceRestapiHarvester_Harvest extends Omeka_Record_AbstractRecord
 
                    $bt_name =  $bitstream["name"];
                    $bt_seq = $bitstream["sequenceId"];
-                   $bt_id = $bitstream["id"];
+                   $bt_id = $bitstream["uuid"];
 
                    // FIXME : getting dspace_url in a way might break in other DSpace with different config
                    // remove the last path of restapi
@@ -130,7 +130,7 @@ class DspaceRestapiHarvester_Harvest extends Omeka_Record_AbstractRecord
 						$bt_url = $dspace_url . "/streaming/file_" . $bt_id . "_" . $bt_name;
 						$this->addStatusMessage("Audio/Video import: " . $bt_url);
 					}else{
-                   		$bt_url = $dspace_url ."/bitstream/handle/" . $item_handle . "/" . $bt_name . "?sequence=" . $bt_seq;
+                   		$bt_url = $this->base_url ."/bitstreams/" . $bt_id . "/retrieve";
 					}
 
                    if($bitstream["bundleName"] == "THUMBNAIL"){
