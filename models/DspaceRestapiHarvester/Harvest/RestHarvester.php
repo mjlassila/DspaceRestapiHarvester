@@ -81,7 +81,7 @@ class DspaceRestapiHarvester_Harvest_RestHarvester
     protected function _harvestRecord($record){
 
         $itemMetadata = array(
-                   'item_type_name' => 'Oral History',
+                   'item_type_name' => 'Map',
                    'collection_id' => $this->_collection->id,
                    'identifier'      => $record["uuid"],
                    'modified'  => $record["lastModified"],
@@ -118,24 +118,22 @@ class DspaceRestapiHarvester_Harvest_RestHarvester
 
         // harvest bitstream for the record
 
-        $fileMetadata = array();
-       /* $bundles = $this->_harvest->listBundles($record["id"]);
-        $bundleCount = count($bundles);
-        foreach($bundles as $bundle){
-           if($bundle["name"] == "THUMBNAIL");
-               $bt_id =  $bundle["bitstreams"][0]["id"];
-               $bitstream = $this->_harvest->getBitstream($bt_id);
+     $fileMetadata = array();
+       $bitstreams = $this->_harvest->listBitstreams($record["uuid"]);
+       $original_bitstreams = $bitstreams["original"];
+        $bitstreamCount = count($original_bitstreams);
+        foreach($original_bitstreams as $name =>$url){
 	       
                $fileMetadata['file_transfer_type'] = 'url';
                $fileMetadata['files'] = array(
                    'Upload' => null,
-                   'Url' => "http://dspaceland.rice.edu:8080/bitstream/handle/1911/25/IMG_2003.JPG?sequence=1",
-                   'source' => (string) "http://dspaceland.rice.edu:8080/bitstream/handle/1911/25/IMG_2003.JPG?sequence=1",
-                   'name'   => (string) "IMG_2003.jpg",
+                   'Url' => $url,
+                   'source' => $url,
+                   'name'   => $name,
                    'metadata' => array(),
            );
 
-       } */
+       } 
 
        return array('itemMetadata' => $itemMetadata,
                     'elementTexts' => $elementTexts,

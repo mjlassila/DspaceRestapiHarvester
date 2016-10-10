@@ -77,7 +77,7 @@ class DspaceRestapiHarvesterPlugin extends Omeka_Plugin_AbstractPlugin
         CREATE TABLE IF NOT EXISTS `{$db->prefix}dspace_restapi_harvester_harvests` (
           `id` int unsigned NOT NULL auto_increment,
           `collection_id` int unsigned default NULL,
-          `source_collection_id` int unsigned default NULL,
+          `source_collection_id` text,
           `base_url` text NOT NULL,
           `collection_spec` text,
           `collection_name` text,
@@ -293,8 +293,8 @@ class DspaceRestapiHarvesterPlugin extends Omeka_Plugin_AbstractPlugin
 	    	$harvest_id = $existRecord->harvest_id;
     	    $handle = $existRecord->handle;
             $harvester = $this->_db->getTable('DspaceRestapiHarvester_Harvest')->findByHarvestId($harvest_id);
-		    $bitstreams = $harvester->listBitstreams($source_item_id, $handle);
-	        $thumbList = $bitstreams["thumbnail"];
+		    $bitstreams = $harvester->listBitstreams($source_item_id);
+	      $thumbList = $bitstreams["thumbnail"];
 	    	$origList = $bitstreams["original"];
      		
 		    if($origList){

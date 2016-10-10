@@ -63,7 +63,7 @@ class DspaceRestapiHarvester_Harvest extends Omeka_Record_AbstractRecord
 
     public function listRecords()
     {
-        $query = "collections/". $this->source_collection_id . "/items?limit=9999999"; // . $this->collection_size;
+        $query = "collections/". $this->source_collection_id . "/items"; // . $this->collection_size;
 		//$query = "collections/". $this->source_collection_id . "/items";
 
 
@@ -93,7 +93,7 @@ class DspaceRestapiHarvester_Harvest extends Omeka_Record_AbstractRecord
     }
 
 
-    public function listBitstreams($item_id, $item_handle)
+    public function listBitstreams($item_id)
     {
 
         // Harvest an item bundle with given item id.
@@ -130,7 +130,7 @@ class DspaceRestapiHarvester_Harvest extends Omeka_Record_AbstractRecord
 						$bt_url = $dspace_url . "/streaming/file_" . $bt_id . "_" . $bt_name;
 						$this->addStatusMessage("Audio/Video import: " . $bt_url);
 					}else{
-                   		$bt_url = $this->base_url ."/bitstreams/" . $bt_id . "/retrieve";
+                   		$bt_url = $this->base_url ."bitstreams/" . $bt_id . "/retrieve";
 					}
 
                    if($bitstream["bundleName"] == "THUMBNAIL"){
